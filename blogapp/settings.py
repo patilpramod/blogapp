@@ -72,7 +72,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blogapp.wsgi.application'
 
-
+USE_TZ = True
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
