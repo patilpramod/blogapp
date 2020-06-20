@@ -1,7 +1,51 @@
 {% extends "base.html" %} {% block head_title %} {{instance.title}} |
-{{block.super}} {% endblock head_title %} {% block content %} {{instance.title}}
-<br />
-{{instance.content}} <br />
-{{instance.timestamp}} <br />
-{{instance.updated}} <br />
+{{block.super}} {% endblock head_title %} {% block content %}
+
+<div class="col-sm-10">
+  {% csrf_token %} {% if instance.image %}
+  <img src="{{ instance.image.url }}" alt="" class="img-responsive" />
+  {% endif %}
+  <h1>{{instance.title}} <small>
+    {% if instance.draft %}
+      <span style="color: red;">Draft</span>
+    {% endif %}
+    {{instance.publish}}</small></h1>
+  <br />
+  {% if instance.user.get_full_name %}
+  <p>Auther : {{ instance.user.get_full_name }}</p>
+  {% endif %}
+  <br />
+
+ <p>
+  <div class="fb-like" data-href={{ request.build_absolute_uri}} data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>
+</p>  <hr>
+<!-- <p>
+  <a
+    href="https://www.facebook.com/sharer/sharer.php?u= {{ request.build_absolute_uri}}"
+  >
+    Facebook </a
+  ><a
+    href="https://twitter.com/home?status={{ share_string }}%20{{ request.build_absolute_uri}}"
+  >
+    Twitter </a
+  ><a href="https://plus.google.com/share?url= {{ request.build_absolute_uri}}"
+    >Google+</a
+  ><a
+    href="https://www.linkedin.com/shareArticle?mini=true&url= {{ request.build_absolute_uri}}&title={{ instance.title }}&summary={{ share_string }}&source= {{ request.build_absolute_uri}}"
+  >
+    Linkedin </a
+  ><a
+    href="http://www.reddit.com/submit?url= {{ request.build_absolute_uri}}&title={{ instance.title }}"
+    >Reddit</a
+  ></p> -->
+  {{instance.content | linebreaks}} <br />
+<hr>
+  <div
+    class="fb-comments"
+    data-href="{{ request.build_absolute_uri}}"
+    data-numposts="5"
+    data-width=""
+  ></div>
+</div>
+
 {% endblock content %}
