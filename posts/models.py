@@ -43,6 +43,8 @@ class Post(models.Model):
     class Meta:
         ordering = ['-timestamp', '-updated']
 
+    def get_markdown(self):
+        content = self.content
 
 def create_slug(instance, new_slug=None):
     slug = slugify(instance.title)
